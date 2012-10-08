@@ -62,8 +62,8 @@ describe("Gilded Rose", function() {
 	  		expect(items[4].sell_in).toEqual(14);
 	  		expect(items[4].quality).toEqual(21);
 	  		//items.push(new Item('Conjured Mana Cake', 3, 6));
-	  		//expect(items[5].sell_in).toEqual(2);
-	  		//expect(items[5].quality).toEqual(4);
+	  		expect(items[5].sell_in).toEqual(2);
+	  		expect(items[5].quality).toEqual(4);
 		});
 
 	});
@@ -186,13 +186,25 @@ describe("Gilded Rose", function() {
 			});
 	});
 
+	describe("'Conjured' items ", function() {
+		beforeEach(function() {
+      		items = [];
+
+			items.push(new Item('Conjured Mana Cake', 3, 6));
+
+			update_quality();
+    	});
+		it(" degrade in quality twice as fast as normal items", function() {
+			expect(items[0].quality).toEqual(4);
+		});
+
+	});
+
 	describe("five day", function() {
 		beforeEach(function() {
-			update_quality();
-			update_quality();
-			update_quality();
-			update_quality();
-			update_quality();
+			for (var i = 5 - 1; i >= 0; i--) {
+					update_quality();
+			};
 		});
 
 		it("At the end of each day our system lowers both values for every item", function() {
